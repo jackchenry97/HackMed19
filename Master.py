@@ -3,15 +3,21 @@ import nexmo
 
 
 client = nexmo.Client(key="5827c039", secret="t6ixFVYXNDfwjNd8")
+Q = {}
+A = {}
 
 def read_QA(filename = "questions.csv"):
   # reads 1st col as questions
   # and second col as answer
   # return array with matrix[0][0...n] with questions
   # and matrix[1][0...n] with respective answers
+<<<<<<< HEAD
   Q = {}
   A1 = {}
   A2 = {}
+=======
+
+>>>>>>> Jack
   import csv
   with open(filename) as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',')
@@ -21,8 +27,13 @@ def read_QA(filename = "questions.csv"):
       A1[index] = row[1]
       A2[index] = row[2]
       index = index + 1
+<<<<<<< HEAD
   return(Q,A1,A2)
 
+=======
+      #count how many rows in csv
+  return(Q,A)
+>>>>>>> Jack
 QA_matrix = read_QA(filename="questions.csv")
 number_of_rows = len(QA_matrix[0])
 
@@ -82,10 +93,9 @@ wrong_answer = "Please try again!"
 people = {}
 first_message = "Please reply with your name"
 second_message = "Lets begin the game!"
-third_message = "First Question: Blah Blah Blah."
-third_answers = "Reply with the letter for the correct answer: A: Apples, B:Monty C:Fall over"
 
 end_message = "You have finished the game"
+
 
 def identify_sender(inbound, text):
     print(callHistory[inbound])
@@ -94,13 +104,13 @@ def identify_sender(inbound, text):
     elif callHistory[inbound] == 2:
         people[inbound] = text
         message(inbound, second_message)
-        message(inbound, third_message)
-        message(inbound, third_answers)
-    elif callHistory[inbound] == 3:
-        if text == "A" or "B":
-            message(wrong_answer)
+        message(inbound, Q[0])
+    elif callHistory[inbound] >= 3:
+        question_index = callHistory[inbound] -3
+        if text == A[question_index]:
+            message(inbound, correct_answer)
         else:
-            message(correct_answer)
+            message(inbound, wrong_answer)
 
 
 
@@ -114,7 +124,7 @@ def message(number, message):
     print("sending " + message + " to " + number)
     responseData = client.send_message(
     {
-        "from": "HackMed19",
+        "from": "447937946988",
         "to": number,
         "text": message,
     })
