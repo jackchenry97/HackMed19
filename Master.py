@@ -69,7 +69,7 @@ def identify_sender(inbound, text):
         message(inbound, first_message)
     elif callHistory[inbound] == 2:
         people[inbound] = text
-        message(inbound, second_message)
+        message(inbound, ("Lets begin the game! " + people[inbound]))
         message(inbound, Q[0])
     elif callHistory[inbound] >= 3:
         question_index = callHistory[inbound] -3
