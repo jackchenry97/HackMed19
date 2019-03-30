@@ -11,13 +11,10 @@ def read_QA(filename = "questions.csv"):
   # and second col as answer
   # return array with matrix[0][0...n] with questions
   # and matrix[1][0...n] with respective answers
-<<<<<<< HEAD
   Q = {}
   A1 = {}
   A2 = {}
-=======
-
->>>>>>> Jack
+  
   import csv
   with open(filename) as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',')
@@ -27,13 +24,8 @@ def read_QA(filename = "questions.csv"):
       A1[index] = row[1]
       A2[index] = row[2]
       index = index + 1
-<<<<<<< HEAD
   return(Q,A1,A2)
 
-=======
-      #count how many rows in csv
-  return(Q,A)
->>>>>>> Jack
 QA_matrix = read_QA(filename="questions.csv")
 number_of_rows = len(QA_matrix[0])
 
