@@ -3,8 +3,10 @@ import nexmo
 
 
 client = nexmo.Client(key="5827c039", secret="t6ixFVYXNDfwjNd8")
-Q = {}
-A = {}
+
+Callers_names = {}
+caller_status = {}
+wrong_answer = "No, not quite. Try again."
 
 def read_QA(filename = "questions.csv"):
   # reads 1st col as questions
@@ -25,14 +27,57 @@ def read_QA(filename = "questions.csv"):
       A2[index] = row[2]
       index = index + 1
   return(Q,A1,A2)
+def is_first(number,message):
+  if number not in Callers_names:
+    Callers_names[number] = message
+    caller_status[number] = -1
+def move_in_game(number,message):
+  print("Message from:" + Callers_names[number] + "; Text: "+message)
+  # first time caller?
+  if caller_status[number] == -1:
+    first_msg = "Hi " + Callers_names[number] + ", this is Alice. We need your help!"
+    send_message(number=number, text = first_msg)
+    answer_correct = True
+  else:
+    answer_correct = eval_A(QAs=QA_matrix,index=caller_status[number],message=message)
+  if answer_correct == True:
+      caller_status[number] = caller_status[number] +1
+      ask_question(QAs=QA_matrix,number=number,state_in_game=caller_status[number])
+      last_question = has_won(QAs=QA_matrix,number=number)
+      if last_question == True:
+        caller_status[number] = -1
+
+  else:
+    send_message(number=number,text=wrong_answer)
+def eval_A(QAs,index,message):
+  # QAs is the Q and A matrix from read_QA()
+  if message == QAs[1][index] or message == QAs[2][index]:
+    print("Answer correct")
+    res = True
+  else:
+    res = False
+    print("Answer false")
+  return(res)
+def play(number,message):
+  is_first(number=number,message=message)
+  move_in_game(number=number,message=message)
+def ask_question(QAs,number,state_in_game):
+  Question = QAs[0][state_in_game]
+  send_message(number=number,text=Question)
+def has_won(QAs,number):
+  print(len(QAs))
+  print(caller_status[number]-1)
+  finished = len(QAs) == caller_status[number]
+  return finished
+  
 
 QA_matrix = read_QA(filename="questions.csv")
-number_of_rows = len(QA_matrix[0])
+
+
 
 app = Flask(__name__)
 print("loading")
 app.debug = True
-read_QA()
 
 
 @app.route('/',methods=["GET"])
@@ -43,66 +88,26 @@ callHistory = {}
 
 @app.route('/webhooks/inbound-sms', methods=['GET', 'POST'])
 def inbound_sms():
-    print('Recieved a message')
     data = request.args
-    print(data)
-
+    # print(data)
     inbound = str(data.get("msisdn"))
     text = data.get("text")
-    print(inbound)
-
-    if  inbound not in callHistory:
-        callHistory[inbound] = 1
-    else:
-        callHistory[inbound] += 1
-    identify_sender(inbound, text) 
+    # print(inbound)
+    play(number=inbound,message=text)
     return ('', 204)
 
-correct_answer = "Well done thats correct!"
-wrong_answer = "Please try again!"
-
-people = {}
-first_message = "Please reply with your name"
-second_message = "Lets begin the game!"
-
-end_message = "You have finished the game"
-
-
-def identify_sender(inbound, text):
-    print(callHistory[inbound])
-    if callHistory[inbound] == 1:
-        message(inbound, first_message)
-    elif callHistory[inbound] == 2:
-        people[inbound] = text
-        message(inbound, ("Lets begin the game! " + people[inbound]))
-        message(inbound, Q[0])
-    elif callHistory[inbound] >= 3:
-        question_index = callHistory[inbound] -3
-        if text == A1[question_index] or A2[question_index]:
-            message(inbound, correct_answer)
-        else:
-            message(inbound, wrong_answer)
-
-
-
-
-
-    elif callHistory[inbound] >= 5:
-        messgae(inbound, end_message)
-        
-
-def message(number, message):
-    print("sending " + message + " to " + number)
+def send_message(number, text):
+    print("sending " + text + " to " + number)
     responseData = client.send_message(
     {
         "from": "447937946988",
         "to": number,
-        "text": message,
+        "text": text,
     })
-    print(responseData)
+    # print(responseData)
     return ("Sent")
   
 
 if __name__ == '__main__':
 
-    app.run(port=5000)
+    app.run(port=3000)
