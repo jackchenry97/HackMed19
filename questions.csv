@@ -1,2 +1,9 @@
+<<<<<<< HEAD
 What is 1+1? Is it A) 1230; B) foo; or c) 2,C,2
 What is 1*1? ,1, 1
+=======
+What is 1+1? Is it A) 1230; B) foo; or c) 2,2,c
+What is 1*1? ,1,x
+What is my favorite meal?,Pizza,pizza
+"Congrats. You got to the end. If you want to play again, just send a new message to this number.",0,0
+>>>>>>> da434d0bb5b222ee27a583276eba43128cd9e22d
