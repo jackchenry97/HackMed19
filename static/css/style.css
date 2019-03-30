@@ -1,5 +1,26 @@
-body div {
-    width: 80%;
-    height: 80%;
-    background-color: lightblue;
+body {
+    background: #555;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main {
+    width: 1000px;
+    height: 600px;
+    background-color: #f1f1f1;
+    border-bottom: 8px solid #4CAF50 ;
+    position:absolute;
+    left:0; right:0;
+    top:0; bottom:0;
+    margin:auto;
+    text-align: center;
+}
+
+h1{
+    color:	#282828;
+    font-size: 5em;
+}
+
+p{
+    color:	#282828;
+    font-size: 3em;
 }

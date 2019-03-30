@@ -1,11 +1,12 @@
-<head>
-    <link rel="stylesheet" type="css" href="css/style.css">
-</head>
-<body>
-    <div>
+<html>
 
-    <form action="webhooks/outbound-sms" method="post">
-        <button type="submit">Start Game</button>
-    </form>
-    </div>
-</body>
+    <head>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    </head>
+    <body>
+        <div class="main">
+            <h1>Vax or Die</h1>
+            <p>Text your name to +44 7937946988 to play</p>
+        </div>
+    </body>
+    </html>

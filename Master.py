@@ -4,16 +4,15 @@ import nexmo
 
 client = nexmo.Client(key="5827c039", secret="t6ixFVYXNDfwjNd8")
 Q = {}
-A = {}
+A1 = {}
+A2 = {}
 
 def read_QA(filename = "questions.csv"):
   # reads 1st col as questions
   # and second col as answer
   # return array with matrix[0][0...n] with questions
   # and matrix[1][0...n] with respective answers
-  Q = {}
-  A1 = {}
-  A2 = {}
+
   
   import csv
   with open(filename) as csvfile:
