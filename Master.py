@@ -37,23 +37,40 @@ def inbound_sms():
     identify_sender(inbound, text) 
     return ('', 204)
 
+correct_answer = "Well done thats correct!"
+wrong_answer = "Please try again!"
 
 people = {}
 first_message = "Please reply with your name"
-second_message = "Lets begin the game, reply to start"
-third_message = "Third message"
+second_message = "Lets begin the game!"
+third_message = "First Question: Blah Blah Blah."
+third_answers = "Reply with the letter for the correct answer: A: Apples, B:Monty C:Fall over"
+
+end_message = "You have finished the game"
 
 def identify_sender(inbound, text):
-    print(inbound)
+    print(callHistory[inbound])
     if callHistory[inbound] == 1:
         message(inbound, first_message)
     elif callHistory[inbound] == 2:
         people[inbound] = text
         message(inbound, second_message)
-    elif callHistory[inbound] >= 3:
         message(inbound, third_message)
+        message(inbound, third_answers)
+    elif callHistory[inbound] == 3:
+        if text = "A" or "B":
+            message(wrong_answer)
+        else:
+            message(correct_answer)
 
-@app.route('/webhooks/outbound-sms',methods=["GET", "POST"])
+
+
+
+
+    elif callHistory[inbound] >= 5:
+        messgae(inbound, end_message)
+        
+
 def message(number, message):
     print("sending " + message + " to " + number)
     responseData = client.send_message(
@@ -64,10 +81,6 @@ def message(number, message):
     })
     print(responseData)
     return ("Sent")
-
-
-
-
 
 if __name__ == '__main__':
 
