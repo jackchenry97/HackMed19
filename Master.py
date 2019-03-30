@@ -4,6 +4,39 @@ import nexmo
 
 client = nexmo.Client(key="5827c039", secret="t6ixFVYXNDfwjNd8")
 
+def read_QA(filename = "questions.csv"):
+  # reads 1st col as questions
+  # and second col as answer
+  # return array with matrix[0][0...n] with questions
+  # and matrix[1][0...n] with respective answers
+  Q = {}
+  A = {}
+  import csv
+  with open(filename) as csvfile:
+    spamreader = csv.reader(csvfile, delimiter=',')
+    index = 0
+    for row in spamreader:
+      Q[index] = row[0]
+      A[index] = row[1]
+      index = index + 1
+  return(Q,A)
+QA_matrix = read_QA(filename="questions.csv")
+
+def eval_A(QAs,index,Response):
+  # QAs is the Q and A matrix from read_QA()
+  # index is the position of the player in the game
+  # Reponse is the player's message
+  
+  if Response == QAs[1][index]:
+    # print("correct")
+    res = True
+    
+  else:
+    res = False
+    # print("False")
+  return(res)
+# eval_A(QAs = QA_matrix, index = 0, Response="This is a wrong answer")
+
 app = Flask(__name__)
 print("loading")
 app.debug = True
@@ -82,42 +115,6 @@ def message(number, message):
     print(responseData)
     return ("Sent")
   
-  
-  
-  
-    
-def read_QA(filename = "questions.csv"):
-  # reads 1st col as questions
-  # and second col as answer
-  # return array with matrix[0][0...n] with questions
-  # and matrix[1][0...n] with respective answers
-  Q = {}
-  A = {}
-  import csv
-  with open(filename) as csvfile:
-    spamreader = csv.reader(csvfile, delimiter=',')
-    index = 0
-    for row in spamreader:
-      Q[index] = row[0]
-      A[index] = row[1]
-      index = index + 1
-  return(Q,A)
-# QA_matrix = read_QA(filename="questions.csv")
-
-def eval_A(QAs,index,Response):
-  # QAs is the Q and A matrix from read_QA()
-  # index is the position of the player in the game
-  # Reponse is the player's message
-  
-  if Response == QAs[1][index]:
-    # print("correct")
-    res = True
-    
-  else:
-    res = False
-    # print("False")
-  return(res)
-# eval_A(QAs = QA_matrix, index = 0, Response="1")
 
 if __name__ == '__main__':
 
