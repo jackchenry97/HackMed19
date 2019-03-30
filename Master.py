@@ -12,7 +12,7 @@ def main():
     print("loading")
     return render_template('main.html')
 
-@app.route('/sendMessage/',methods=["POST"])
+@app.route('/sendMessage',methods=["POST"])
 def sendMessage():
     print("Running")
     responseData = client.send_message(
@@ -21,7 +21,9 @@ def sendMessage():
         "to": 447591608879,
         "text": "A text message sent using the Nexmo SMS API",
     })
-    return render_template('main.html')
+    return "okay"
+
+
 
 if __name__ == '__main__':
     app.run()
