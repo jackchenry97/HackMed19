@@ -29,26 +29,6 @@ def read_QA(filename = "questions.csv"):
 QA_matrix = read_QA(filename="questions.csv")
 number_of_rows = len(QA_matrix[0])
 
-<<<<<<< HEAD
-=======
-def eval_A(QAs,index,Response):
-  # QAs is the Q and A matrix from read_QA()
-  # index is the position of the player in the game
-  # Reponse is the player's message
-  
-  print("Response",Response)
-  print("QAs[1][index]",QAs[1][index])
-  # print("QAs[2][index]",QAs[2][index])
-  if Response == QAs[1][index] or Response == QAs[2][index]:
-    print("correct")
-    res = True
-  else:
-    res = False
-    print("False")
-  return(res)
-# eval_A(QAs = QA_matrix, index = 0, Response="This is a wrong answer")
-
->>>>>>> master
 app = Flask(__name__)
 print("loading")
 app.debug = True
@@ -98,7 +78,7 @@ def identify_sender(inbound, text):
         message(inbound, Q[0])
     elif callHistory[inbound] >= 3:
         question_index = callHistory[inbound] -3
-        if text == A[question_index]:
+        if text == A1[question_index] or A2[question_index]:
             message(inbound, correct_answer)
         else:
             message(inbound, wrong_answer)
