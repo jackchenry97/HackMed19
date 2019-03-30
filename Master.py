@@ -24,34 +24,15 @@ def read_QA(filename = "questions.csv"):
   return(Q,A)
 QA_matrix = read_QA(filename="questions.csv")
 
-def eval_A(QAs,index,Response):
-  # QAs is the Q and A matrix from read_QA()
-  # index is the position of the player in the game
-  # Reponse is the player's message
-  
-  if Response == QAs[1][index]:
-    # print("correct")
-    res = True
-    
-  else:
-    res = False
-    # print("False")
-  return(res)
-# eval_A(QAs = QA_matrix, index = 0, Response="This is a wrong answer")
-
 app = Flask(__name__)
 print("loading")
 app.debug = True
+read_QA()
 
 
 @app.route('/',methods=["GET"])
 def main():  
     return render_template('main.html')
-
-@app.route('/test',methods=["GET"])
-def test():
-    print('test')
-    return 'test'
 
 callHistory = {}
 
