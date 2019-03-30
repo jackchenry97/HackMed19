@@ -18,7 +18,7 @@ def main():
     return render_template('main.html')
     
 
-@app.route('/webhooks/outbound-sms',methods=["POST"])
+@app.route('/webhooks/outbound-sms',methods=["GET", "POST"])
 def sendMessage():
     responseData = client.send_message(
     {
@@ -26,7 +26,7 @@ def sendMessage():
         "to": 447591608879,
         "text": "What",
     })
-    return "okay"
+    return ("okay")
 
 
 
