@@ -22,7 +22,9 @@ def read_QA(filename = "questions.csv"):
       A2[index] = row[2]
       index = index + 1
   return(Q,A1,A2)
+
 QA_matrix = read_QA(filename="questions.csv")
+number_of_rows = len(QA_matrix[0])
 
 def eval_A(QAs,index,Response):
   # QAs is the Q and A matrix from read_QA()
