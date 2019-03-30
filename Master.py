@@ -16,33 +16,40 @@ def main():
     print("loading")
     
     return render_template('main.html')
-
-
-@app.route('/webhooks/inbound-sms', methods=['GET', 'POST'])
-def inbound_sms():
-    if request.is_json:
-        pprint(request.get_json())
-        print("json")
-    else:
-        data = dict(request.form) or dict(request.args)
-        pprint(data)
-        print(data)
     
-    return ('', 204)
 
 @app.route('/webhooks/outbound-sms',methods=["GET", "POST"])
 def sendMessage():
     responseData = client.send_message(
     {
         "from": "HackMed19",
-        "to": "447591608879",
+        "to": 447591608879,
         "text": "What",
     })
     return ("okay")
 
 
 
-
+@app.route('/webhook/inbound-sms', methods=['GET', 'POST'])
+def inbound_sms():
+    print("Method is working")
+    if request.is_json:
+        print("Its a json")
+        print(request.get_json())
+    else:
+        data = dict(request.form) or dict(request.args)
+        
+        print("Sender Number:")
+        print(data.get("msisdn"))
+        
+        
+        print("Text message:")
+        print(data.get("text"))
+        # print("Its not a json")
+        # pprint(data)
+    
+    return ('', 204)
 
 if __name__ == '__main__':
-    app.run(port=5000)
+
+    app.run(port=3000)
