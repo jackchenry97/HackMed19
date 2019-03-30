@@ -37,8 +37,8 @@ def inbound_sms():
     else:
         data = dict(request.form) or dict(request.args)
         pprint(data)
-
+    
     return ('', 204)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5000)
