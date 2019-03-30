@@ -58,7 +58,7 @@ def identify_sender(inbound, text):
         message(inbound, third_message)
         message(inbound, third_answers)
     elif callHistory[inbound] == 3:
-        if text = "A" or "B":
+        if text == "A" or "B":
             message(wrong_answer)
         else:
             message(correct_answer)
@@ -81,6 +81,25 @@ def message(number, message):
     })
     print(responseData)
     return ("Sent")
+    
+def read_QA(filename = "questions.csv"):
+  # reads 1st col as questions
+  # and second col as answer
+  # return array with matrix[0][0...n] with questions
+  # and matrix[1][0...n] with respective answers
+  Q = {}
+  A = {}
+  import csv
+  with open(filename) as csvfile:
+    spamreader = csv.reader(csvfile, delimiter=',')
+    index = 0
+    for row in spamreader:
+      Q[index] = row[0]
+      A[index] = row[1]
+      index = index + 1
+  return(Q,A)
+# QO_matrix = read_QA(filename="questions.csv")
+
 
 if __name__ == '__main__':
 
