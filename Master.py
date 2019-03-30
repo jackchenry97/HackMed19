@@ -18,14 +18,13 @@ def main():
     return render_template('main.html')
     
 
-@app.route('/sendMessage',methods=["POST"])
+@app.route('/webhooks/outbound-sms',methods=["POST"])
 def sendMessage():
-    print("Running")
     responseData = client.send_message(
     {
         "from": "HackMed19",
         "to": 447591608879,
-        "text": "A text message sent using the Nexmo SMS API",
+        "text": "What",
     })
     return "okay"
 
