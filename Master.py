@@ -81,6 +81,10 @@ def message(number, message):
     })
     print(responseData)
     return ("Sent")
+  
+  
+  
+  
     
 def read_QA(filename = "questions.csv"):
   # reads 1st col as questions
@@ -98,8 +102,22 @@ def read_QA(filename = "questions.csv"):
       A[index] = row[1]
       index = index + 1
   return(Q,A)
-# QO_matrix = read_QA(filename="questions.csv")
+# QA_matrix = read_QA(filename="questions.csv")
 
+def eval_A(QAs,index,Response):
+  # QAs is the Q and A matrix from read_QA()
+  # index is the position of the player in the game
+  # Reponse is the player's message
+  
+  if Response == QAs[1][index]:
+    # print("correct")
+    res = True
+    
+  else:
+    res = False
+    # print("False")
+  return(res)
+# eval_A(QAs = QA_matrix, index = 0, Response="1")
 
 if __name__ == '__main__':
 
