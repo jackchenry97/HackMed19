@@ -10,16 +10,18 @@ def read_QA(filename = "questions.csv"):
   # return array with matrix[0][0...n] with questions
   # and matrix[1][0...n] with respective answers
   Q = {}
-  A = {}
+  A1 = {}
+  A2 = {}
   import csv
   with open(filename) as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',')
     index = 0
     for row in spamreader:
       Q[index] = row[0]
-      A[index] = row[1]
+      A1[index] = row[1]
+      A2[index] = row[2]
       index = index + 1
-  return(Q,A)
+  return(Q,A1,A2)
 QA_matrix = read_QA(filename="questions.csv")
 
 def eval_A(QAs,index,Response):
@@ -27,13 +29,15 @@ def eval_A(QAs,index,Response):
   # index is the position of the player in the game
   # Reponse is the player's message
   
-  if Response == QAs[1][index]:
-    # print("correct")
+  print("Response",Response)
+  print("QAs[1][index]",QAs[1][index])
+  # print("QAs[2][index]",QAs[2][index])
+  if Response == QAs[1][index] or Response == QAs[2][index]:
+    print("correct")
     res = True
-    
   else:
     res = False
-    # print("False")
+    print("False")
   return(res)
 # eval_A(QAs = QA_matrix, index = 0, Response="This is a wrong answer")
 
