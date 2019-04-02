@@ -2,3 +2,6 @@ Hello
 
 
 
+ win_answer = str("Congratulations " + callers_names[number] "! You stopped the crazy anti-vaxxers and saved the world! Well if not the world then at least this newborns life then. You convinced the mother to get all of the vaccines. If you want to play again, just send a new message to this number.")
+  medium_answer = str("Congratulations " + callers_names[number] "! Well sort of? You almost convinced the mother to get the vaccines but avoided some of them. Luckily the child was able to survive without her immunisations through heard immunity.")
+  lose_answer = str("Oh dear " + callers_names[number] ". You have lost to the crazy anti-vaxxers. You were not persuasive enough to the mother and she decided not to get any vaccines. The daughter was not one of the lucky ones to survive through heard immunity and died of the measles and this is on you. If you want to try again, just send a new message to this number.")

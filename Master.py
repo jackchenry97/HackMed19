@@ -11,7 +11,7 @@ def main():
 
 #Variables
 client = nexmo.Client(key="5827c039", secret="t6ixFVYXNDfwjNd8")
-no_questions = 11
+no_questions = 10
 Q = [0]*no_questions
 A1 = [0]*no_questions
 A2 = [0]*no_questions
@@ -75,26 +75,26 @@ def move_in_game(number, message):
     send_message(number, second_message)
     send_message(number, QA_matrix[0][0])
     progress = True
-  elif index > -1 and index < 4:
+  elif index > -1 and index < 3:
     progress = eval_A(QA_matrix, index, message)
-  elif index > 3:
+  elif index > 2:
     if message == "1" or "a": 
       callers_score[number] += int(QA_matrix[1][index])
       progress = True
-    elif message == "1" or "b": 
+    elif message == "2" or "b": 
       callers_score[number] += int(QA_matrix[2][index])
       progress = True
-    elif message == "1" or "c": 
+    elif message == "3" or "c": 
       callers_score[number] += int(QA_matrix[3][index])
       progress = True
   
   if progress == True:
       caller_status[number] = caller_status[number] +1
-      if index > -1 and index < no_questions:
+      if index > -1 and index < no_questions -1:
         send_message(number, QA_matrix[0][index+1])
-      elif (no_questions) == index:
+      elif (no_questions -1) == index:
         end_game(number)
-  else:
+  elif progress == False:
     send_message(number, wrong_answer)
 
 def end_game(number):
